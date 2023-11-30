@@ -28,7 +28,8 @@
   },
   "homepage": "https://github.com/gtmsoftware/fleet-wise#readme",
   "dependencies": {
-    "@prisma/client": "^5.5.2",
+    "@prisma/client": "^5.6.0",
+    "body-parser": "^1.20.2",
     "compress": "^0.99.0",
     "cookie-parser": "^1.4.6",
     "cookie-session": "^2.0.0",
