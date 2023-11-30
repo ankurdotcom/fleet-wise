@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const bcrypt = require('bcrypt');
 
-const { login } = require('../auth_service/auth_service');
+const { getUsers } = require('../dbservice/login_service');
 
 const pageName = 'Login Page (लॉगिन पेज)';
 
@@ -22,17 +23,34 @@ router.get('/:username', async (req, res, next) => {
 /* SAVE loading Entry. */
 router.post('/', async (req, res, next) => {
 
-    console.log(`req==>${JSON.stringify(req.body)}`);
+  console.log(`req==>${JSON.stringify(req.body)}`);
 
-    const { username, password } = req.body;
+  const { username, password } = req.body;
+  const users = await getUsers();
+  console.log("123 " + users);
+  const user = users.find(u => u.username === username);
+  console.log("1234 " + JSON.stringify(user));
+  if (user) {
+    console.log("12345 " + JSON.stringify(user));
+    console.log("palin text pwd  " + password);
+    console.log("hash " + user.password);
+    if (await bcrypt.compare(password, user.password) ){
+      // Make sure that req.session is properly initialized before setting properties
+      req.session = req.session || {};
+      
+      req.session.user = { id: user.id, username: user.username };
+      // res.json({ message: 'Login successful' });
+      // res.render('index', { title: 'login successful ', message: ' login Sucess Message' });
+       res.json({ message: 'Login successful', redirect: '' });
+    }else {
+      res.status(401).json({ message: 'Authentication failed' });
+    }
     
-    // saveLoading(loadingDate, ponitSale, buyer, weight, rate, total, cr_dr, vehicleNumber, rokar);
+  } else {
+    res.status(401).json({ message: 'Authentication failed' });
+  }
 
-    // const viewObject = await populateViewObject();
-    
-    // viewObject.message = 'SingnUp Entry Saved';
-
-    res.render('login', {title : 'login Sucess ' , message: ' login Sucess Message'});
+  
   });
 
 

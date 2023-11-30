@@ -20,6 +20,7 @@ const reportRouter = require('./routes/report');
 const profileRouter = require('./routes/profile');
 const masterRouter = require('./routes/master');
 const loginRouter = require('./routes/login');
+const logoutRouter = require('./routes/logout');
 
 
 const nonceMiddleware = require('./middleware/randomNonce');
@@ -131,6 +132,27 @@ const limiter = rateLimit({
 // Apply the rate limiting middleware to all requests.
 // app.use(limiter)
 
+// Middleware to check if the user is logged in
+function requireLogin(req, res, next) {
+  // Exclude the login route from the middleware
+  console.log(req.path);
+  if (req.path === '/login' || req.path === '/logout') {
+    return next();
+  }
+
+  if (req.session) {
+    if (req.session.user) {
+      next(); // User is logged in, proceed to the next middleware
+    } 
+  }else {
+    res.redirect('/login'); // Redirect to the login page if not logged in
+  }
+}
+
+// Apply the requireLogin middleware globally
+app.use(requireLogin);
+
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -150,6 +172,7 @@ app.use('/report', reportRouter);
 app.use('/profile', profileRouter);
 app.use('/master', masterRouter);
 app.use('/login', loginRouter);
+app.use('/logout', logoutRouter);
 
 
 // catch 404 and forward to error handler
@@ -169,7 +192,7 @@ app.use(function(err, req, res, next) {
 });
 
 // Set up session
-app.use(session({ secret: 'your-secret-key', resave: true, saveUninitialized: true }));
+app.use(session({ secret: 'your-secret-key', resave: false, saveUninitialized: true }));
 
 
 // Initialize Passport

@@ -9,7 +9,7 @@
   <body>
     <!-- <%- include('common/header'); %> -->
     <h1 id="message"><%= message %></h1>
-    <form id="loginFrm" method="post" action="/login">
+    <form id="loginForm" method="post" action="/login">
       
       <div class="frm-field">
         <label for="username">username/Email/Mobile (उपयोगकर्ता नाम या ईमेल या मोबाइल):</label><br>
@@ -22,24 +22,49 @@
       </div>
       
       <div class="frm-button">
-        <button id="loginFrmLogin">SignIn</button>
+        <!-- <button id="loginFormLogin">SignIn</button> -->
+        <input type="submit" value="Login">
       </div>
 
     </form>
 
     <script>
-      
-      
-      function calculate (e) {
-          e.preventDefault();
+      document.getElementById('loginForm').addEventListener('submit',
+       async function (event) {
+        event.preventDefault();
 
-          const weight = document.getElementById("weight").value;
-          const rate = document.getElementById("rate").value;
-          total.value = weight * rate;
-      }
+        // const username = 'user1';  // Replace with actual username
+        // const password = 'password1';  // Replace with actual password
 
-      total.addEventListener("focus", calculate);
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
 
+        try {
+          const response = await fetch('/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ username, password }),
+                });
+
+                if (response.ok) {
+                    // Store the received token in a secure HTTP-only cookie
+                    const { token, redirect, message } = await response.json();
+                    document.cookie = `token=${token}; path=/; HttpOnly`;
+
+                    // Optionally, you can redirect the user to the dashboard or perform other actions
+                    console.log(redirect);
+                    window.location.href = `/`;
+                } else {
+                    console.error('Authentication failed');
+                }
+        } catch (error) {
+                console.error('Error:', error);
+          }
+
+       }
+      );
     </script>
     
     <%- include('common/footer'); %>
