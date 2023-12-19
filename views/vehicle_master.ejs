@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <%- include('common/meta'); %>
+    <link rel="stylesheet" href="/stylesheets/loading.css">
+    <script src="/javascripts/loading.js"></script>
+  </head>
+  <body>
+    <%- include('common/header'); %>
+    <h1 id="message"><%= message %></h1> 
+    <form id="loadingFrm" method="post" action="/loading">
+      
+      <div class="frm-field">
+        <label for="rokar">Rokar Number (रोकड़):</label><br>
+        <input type="text" id="rokar" name="rokar" value="<%= newroker %>" required readonly>
+      </div>
+
+      <div class="frm-field">
+        <label for="vehicleNumber">Vehicle Number (गाड़ी नंबर):</label><br>
+        <select id="vehicleNumber" name="vehicleNumber" required tabindex="1">
+          <optgroup label="Select Gadi Number (गाड़ी नंबर)">
+            <option value="">-----------</option>
+            <% gadiList.forEach(function(gadi){ %>
+              <option value="<%= gadi %>"><%= gadi %></option>
+            <% }) %>
+          </optgroup>
+        </select>
+      </div>
+
+      <div class="frm-field">
+        <label for="loadingDate">Loading Date (लोडिंग तारीख):</label><br>
+        <input type="datetime-local" id="loadingDate" name="loadingDate" value="">
+      </div>
+
+      
+      
+      <div class="frm-field">
+        <label for="ponitSale">Ponit Sale (सेल पॉइंट):</label><br>
+        <select id="ponitSale" name="ponitSale" required tabindex="1">
+          <optgroup label="Select Sale Point (सेल पॉइंट)">
+            <option value="">--Select--</option>
+            <% sellerNameList.forEach(function(seller){ %>
+              <option value="<%= seller.id %>"><%= seller.seller_name %></option>
+            <% }) %>
+          </optgroup>
+        </select>
+      </div>
+
+      <div class="frm-field">
+        <label for="buyer">Buyer (खरीदार):</label><br>
+        <select id="buyer" name="buyer" required tabindex="1">
+          <optgroup label="Select Buyer (खरीदार)">
+            <option value="">--Select--</option>
+            <% buyerNameList.forEach(function(buyer){ %>
+              <option value="<%= buyer.id %>"><%= buyer.buyer_name %></option>
+            <% }) %>
+          </optgroup>
+        </select>
+      </div>
+
+      <div class="frm-field">
+        <label for="weight">Weight (Metric-Tons) (वजन मीट्रिक टन ):</label><br>
+        <input type="number" min="0.00" max="10000.00" step="0.01" id="weight" name="weight" value="0.00" required>
+      </div>
+
+      <div class="frm-field">
+        <label for="rate">Rate(₹) (रेट) :</label><br>
+        <input type="number" min="0" max="100000" step="1" id="rate" name="rate" value="0" required>
+      </div>
+
+      <div class="frm-field">
+        <label for="total">Total (₹) (टोटल):</label><br>
+        <input type="number" min="0.00" max="10000.00" step="0.01" id="total" name="total" value="000000.00" readonly>
+      </div>
+
+      <div class="frm-field">
+        <label for="cr_dr">CR(नगद) / DB (उधार) :</label><br><br>
+        <input type="radio" id="cr" name="cr_dr" value="CR" checked><label for="cr_dr">CR(नगद) :</label><br>
+        <input type="radio" id="dr" name="cr_dr" value="DR"><label for="cr_dr">DB (उधार) :</label>
+      </div>
+      
+      <div class="frm-button">
+        <button id="loadingFrmSave">Save (सेव करो)</button>
+      </div>
+
+    </form>
+<!-- 
+    <script>
+      
+      const total = document.getElementById('total');
+
+      function calculate (e) {
+          e.preventDefault();
+
+          const weight = document.getElementById("weight").value;
+          const rate = document.getElementById("rate").value;
+          total.value = weight * rate;
+      }
+
+      total.addEventListener("focus", calculate);
+
+    </script> -->
+    
+    <%- include('common/footer'); %>
+  </body>
+</html>

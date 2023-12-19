@@ -1,4 +1,5 @@
-INSERT INTO fleetwise_schema.vehicle_master (gadi_number) VALUES('UP77N1234');
-INSERT INTO fleetwise_schema.vehicle_master (gadi_number) VALUES('UP78N9876');
-INSERT INTO fleetwise_schema.vehicle_master (gadi_number) VALUES('UP32NT5614');
-INSERT INTO fleetwise_schema.vehicle_master (gadi_number) VALUES('HR38T3254');
+INSERT INTO fleetwise_schema.vehicle_master (gadi_number,chassis_no,engine_no,current_owner_name,mobile_no,vin_no,fitness_valid_up_to,model_name,maker_name,vehicle_type,fuel_type,registration_date,tax_valid_up_to,emission_norm,financier,is_active,create_at,updated_at,created_by,updated_by) VALUES
+	 ('HR38T3254','123456786','987654986','ShriShivay','9838577475','Vn1285','01-01-2035','4825 10x2 DTLA MAV','TATA','Tata Signa','Diesel','01-05-2023','01-01-2035','BS4','ICICI BANK','Y','2023-12-03 02:23:03.282',NULL,'Operater2',NULL),
+	 ('UP77B5874','123458956','987678458','Jai Hanuman','9654661985','Vn1289','01-01-2035','4825 10x2 DTLA MAV','TATA','Tata 4X4','Diesel','01-05-2023','01-01-2035','BS4','AXIS BANK','N','2023-12-03 02:52:54.233','2023-12-04 00:15:06.195444','CreateUser','updateUser'),
+	 ('UP32NT5614','123456726','987654386','ShriKrishna','7509000250','Vn1235','01-01-2035','4825 10x2 DTLA MAV','Ashok Leyland','MAV Truck','Diesel','01-05-2023','01-01-2035','BS4','HDFC BANK','N','2023-12-03 02:23:03.282406',NULL,'Operater1',''),
+	 ('UP78N9876','123456789','987654321','ShriRam','9911036304','Vn1234','01-01-2032','PRIMA3530','TATA','TIPPER','Diesel','01-01-2023','01-01-2033','BS4','HDFC BANK','N','2023-12-03 02:11:05.06921','2023-12-03 02:15:18.982852','Operater1','Operater2');

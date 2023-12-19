@@ -21,6 +21,8 @@ const profileRouter = require('./routes/profile');
 const masterRouter = require('./routes/master');
 const loginRouter = require('./routes/login');
 
+const vehicleMasterRouter = require('./routes/vehiclemaster');
+
 
 const nonceMiddleware = require('./middleware/randomNonce');
 
@@ -150,6 +152,8 @@ app.use('/report', reportRouter);
 app.use('/profile', profileRouter);
 app.use('/master', masterRouter);
 app.use('/login', loginRouter);
+
+app.use('/vehiclemaster', vehicleMasterRouter);
 
 
 // catch 404 and forward to error handler
