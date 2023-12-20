@@ -65,7 +65,6 @@ const getGadiList = async () => {
    * @returns All Gaadi Detail
    */
   const getAllGaadi = async () => {
-    const dataArray = [];
 
     const query = {
       name: 'get-all-gadi',
@@ -85,6 +84,7 @@ const getGadiList = async () => {
       
       const listOfObjects = rowsFromDatabase.map(d => {
         return {
+          id: d.id,
           gadi_number: d.gadi_number,
         chassis_number: d.chassis_no,
         engine_number: d.engine_no,
@@ -118,4 +118,77 @@ const getGadiList = async () => {
 
   }
 
-  module.exports = {  getGadiList, getGadiByRokar, getGadiRokarList, getAllGaadi };
+
+  /**
+   * 
+   * @returns Gaadi Detail by ID
+   */
+  const getGaadiById = async (id) => {
+    const query = {
+      name: 'get-gadi-by-id',
+      text: `SELECT id, gadi_number, chassis_no, engine_no, current_owner_name, mobile_no, vin_no,
+       fitness_valid_up_to, model_name, maker_name, vehicle_type, fuel_type, registration_date,
+        tax_valid_up_to, emission_norm, financier, is_active, create_at, updated_at, created_by,
+         updated_by FROM fleetwise_schema.vehicle_master vm
+          where vm.id = $1 `,
+      values: [id],
+    }
+
+    try {
+      
+      const result = await dbConnectionPool.query(query);
+
+      console.log(result);
+
+      const rowsFromDatabase = result.rows;
+      
+      console.log(rowsFromDatabase);
+
+      const listOfObjects = rowsFromDatabase.map(d => {
+        return {
+          id: d.id,
+          gadi_number: d.gadi_number,
+        chassis_number: d.chassis_no,
+        engine_number: d.engine_no,
+        owner_name: d.current_owner_name,
+        mobile: d.mobile_no,
+        vin: d.vin_no,
+        fitness_validity: d.fitness_valid_up_to,
+        model: d.model_name,
+        maker: d.maker_name,
+        vehicle_type: d.vehicle_type,
+        fuel_type: d.fuel_type,
+        registration_date: d.registration_date,
+        tax_valid_up_to: d.tax_valid_up_to,
+        emission_norm: d.emission_norm,
+        financier: d.financier,
+        is_active: d.is_active,
+        create_date: d.create_at,
+        last_update_date: d.updated_at,
+        created_by: d.created_by,
+        updated_by: d.updated_by,
+        };
+
+
+      });
+
+      console.log(listOfObjects);
+
+      if (listOfObjects) {
+        if (listOfObjects.length > 0) {
+          return listOfObjects[0];
+        }else {
+          console.log(' No Record ');
+        }
+      }else {
+        console.log(' No Record ');
+        return null;
+      }
+
+    } catch (error) {
+      console.error('Error:', error);
+    }
+
+  }
+
+  module.exports = {  getGadiList, getGadiByRokar, getGadiRokarList, getAllGaadi, getGaadiById };

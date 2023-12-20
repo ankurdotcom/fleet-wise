@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <%- include('common/meta'); %>
+    <link rel="stylesheet" href="/stylesheets/loading.css">
+    <link rel='stylesheet' type='text/css' href='/stylesheets/report.css' />
+    <script src="/javascripts/loading.js"></script>
+  </head>
+  <body>
+    <%- include('common/header'); %>
+    <h1 id="message"><%= message %></h1>
+    <form id="gaadiFrm" method="post" action="/vehiclemaster/">
+
+
+      <div class="frm-field">
+        <label for="gadi_number">Gaadi Number (गाडी नंबर):</label><br>
+        <input type="text" id="gadi_number" name="gadi_number" value="<%= record.gadi_number %>" required >
+      </div>
+
+      <div class="frm-field">
+        <label for="chassis_number">Chassis Number (चेसी नंबर):</label><br>
+        <input type="text" id="chassis_number" name="chassis_number" value="<%= record.chassis_number %>" required >
+      </div>
+
+      <div class="frm-field">
+        <label for="engine_number">Engine Number (इंजन नंबर):</label><br>
+        <input type="text" id="engine_number" name="engine_number" value="<%= record.engine_number %>" required >
+      </div>
+
+      <div class="frm-field">
+        <label for="owner_name">Owner Name (मालिक नाम):</label><br>
+        <input type="text" id="owner_name" name="owner_name" value="<%= record.owner_name %>" required >
+      </div>
+
+      <div class="frm-field">
+        <label for="mobile">Mobile (मालिक नाम):</label><br>
+        <input type="text" id="mobile" name="mobile" value="<%= record.mobile %>" required >
+      </div>
+
+      <div class="frm-field">
+        <label for="vin">vin (VIN):</label><br>
+        <input type="text" id="vin" name="vin" value="<%= record.vin %>" required >
+      </div>
+
+      <div class="frm-field">
+        <label for="fitness_validity">Fitness Validity (फिटनेस वैलिडिटी):</label><br>
+        <input type="date" id="fitness_validity" name="fitness_validity" value="<%= record.fitness_validity %>" required >
+      </div>
+
+      <div class="frm-field">
+        <label for="model">Model (मॉडल ):</label><br>
+        <input type="text" id="model" name="model" value="<%= record.model %>" required >
+      </div>
+
+      <div class="frm-field">
+        <label for="maker">Maker ( मेकर ):</label><br>
+        <input type="text" id="maker" name="maker" value="<%= record.maker %>" required >
+      </div>
+
+      <div class="frm-field">
+        <label for="vehicle_type">Vehicle Type (व्हीकल टाइप):</label><br>
+        <input type="text" id="vehicle_type" name="vehicle_type" value="<%= record.vehicle_type %>" required >
+      </div>
+
+      <div class="frm-field">
+        <label for="fuel_type">Fuel Type (फ्यूल टाइप):</label><br>
+        <input type="text" id="vehicle_type" name="fuel_type" value="<%= record.fuel_type %>" required >
+      </div>
+
+      <div class="frm-field">
+        <label for="registration_date">Registration Date (रजिस्ट्रेशन  डेट):</label><br>
+        <input type="date" id="registration_date" name="registration_date" value="<%= record.registration_date %>" required >
+      </div>
+
+      <div class="frm-field">
+        <label for="tax_valid_up_to">Tax Validity (टैक्स वैलिडिटी ):</label><br>
+        <input type="date" id="tax_valid_up_to" name="tax_valid_up_to" value="<%= record.tax_valid_up_to %>" required >
+      </div>
+
+      <div class="frm-field">
+        <label for="emission_norm">Emission Norm (एमिशन नॉर्म):</label><br>
+        <input type="text" id="emission_norm" name="emission_norm" value="<%= record.emission_norm %>" required >
+      </div>
+
+      <div class="frm-field">
+        <label for="financier">Financier (फाइनेंसर):</label><br>
+        <input type="text" id="financier" name="financier" value="<%= record.financier %>" required >
+      </div>
+
+      <div class="frm-field">
+        <label for="is_active">Status (स्टेटस):</label><br>
+        <input type="text" id="is_active" name="is_active" value="<%= record.is_active %>" required >
+      </div>
+      
+      <div class="frm-button">
+        <button id="gaadiFrmSave">Save (सेव करो)</button>
+      </div>
+
+    </form>
+<!-- 
+    <script>
+      
+      const total = document.getElementById('total');
+
+      function calculate (e) {
+          e.preventDefault();
+
+          const weight = document.getElementById("weight").value;
+          const rate = document.getElementById("rate").value;
+          total.value = weight * rate;
+      }
+
+      total.addEventListener("focus", calculate);
+
+    </script> -->
+    
+    <%- include('common/footer'); %>
+  </body>
+</html>

@@ -6,7 +6,7 @@
 
 CREATE TABLE fleetwise_schema.vehicle_master (
 	id int4 NOT NULL GENERATED ALWAYS AS IDENTITY( INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START 1 CACHE 1 NO CYCLE),
-    gadi_number varchar NOT NULL -- This Column Contain Vehicle Number
+    gadi_number varchar NOT NULL, -- This Column Contain Vehicle Number
     chassis_no varchar NOT NULL,
     engine_no varchar NOT NULL,
     current_owner_name varchar NOT NULL,

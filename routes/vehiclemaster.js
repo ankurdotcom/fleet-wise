@@ -3,9 +3,9 @@ const router = express.Router();
 
 // const { getLoading, saveLoading} = require('../dbservice/loading_service');
 // const { newRokarNumber } = require('../dbservice/common/rokar_generator');
-const { getGadiList, getAllGaadi } = require('../dbservice/gadi_service');
+const { getGadiList, getAllGaadi, getGaadiById } = require('../dbservice/gadi_service');
 
-const pageName = 'Vehicle Master Entry Page (vahan मास्टर एंट्री पेज)';
+const pageName = 'Vehicle Master Entry Page (गाड़ी मास्टर एंट्री पेज)';
 
 const viewObject = { 
   title: `${pageName}`,
@@ -18,6 +18,10 @@ router.get('/', async function(req, res, next) {
     // TO some processing with request
     
     const data = await getAllGaadi();
+
+    viewObject.data = data;
+
+    viewObject.total = data.length;
 
     viewObject.newroker = '';
 
@@ -83,18 +87,28 @@ router.get('/:gaadi_no', async function(req, res, next) {
     const errorMsg = 'Request with valid Gaadi number';
     viewObject.message = errorMsg;
     console.error('Error:', errorMsg);
-    res.render('master', viewObject);
-  }
+    res.render('vehicle_master', viewObject);
+  };
 
-  const recordList = await getGadiList();
+  const record = await getGaadiById(req.params.gaadi_no);
   
   viewObject.message = 'Record Found';
-  viewObject.record = recordList[0].gadi_number;
 
-  res.render('vehicle_master', viewObject);
+  console.log(record);
+  viewObject.record = record;
+
+  const data = await getAllGaadi();
+    
+    viewObject.newroker = '';
+
+    viewObject.gadiList = data.map((d) => { return d.gadi_number});
+
+    viewObject.sellerNameList = [];
+
+    viewObject.buyerNameList = [];
+
+  res.render('vehicle_master_form', viewObject);
 });
-
-
 
 
 module.exports = router;
